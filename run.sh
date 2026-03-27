@@ -1,0 +1,1 @@
+npm run sync -- --origin "D:/projects/_tmp/origin" --destiny "D:/projects/_tmp/destiny" --commit 593cf6f
