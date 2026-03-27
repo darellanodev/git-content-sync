@@ -28,7 +28,7 @@ function parseArgs() {
 }
 
 function showUsage() {
-  console.error('Uso: git-content-sync --origin <ruta> --destiny <ruta> --commit <hash> [--yes|-y]');
+  console.error('Usage: git-content-sync --origin <path> --destiny <path> --commit <hash> [--yes|-y]');
   process.exit(1);
 }
 

@@ -84,12 +84,12 @@ export async function applyCommitChanges({ origin, destiny, commit }) {
 export function commitDestiny({ destiny, commitMsg }) {
   const statusOutput = sh(`git -C "${destiny}" status --porcelain`);
   if (!statusOutput.trim()) {
-    console.log('No hay cambios en destiny.');
+    console.log('No changes in destiny.');
     return false;
   }
   sh(`git -C "${destiny}" add -A`);
   const escapedMsg = commitMsg.replace(/"/g, '\\"');
   sh(`git -C "${destiny}" commit -m "${escapedMsg}"`);
-  console.log('Commit creado en destiny.');
+  console.log('Commit created in destiny.');
   return true;
 }
