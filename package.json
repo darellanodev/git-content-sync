@@ -1,0 +1,11 @@
+{
+  "name": "git-content-sync",
+  "version": "0.1.0",
+  "type": "module",
+  "bin": {
+    "git-content-sync": "./bin/cli.js"
+  },
+  "scripts": {
+    "sync": "node ./bin/cli.js"
+  }
+}
