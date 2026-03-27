@@ -18,7 +18,7 @@ export function confirmCommit(destiny, commitMsg) {
       console.log(diffStatOutput);
     }
 
-    rl.question('¿Confirmas crear el commit en destiny? (s/N) ', (answer) => {
+    rl.question('\n¿Confirmas crear el commit en destiny? (s/N) ', (answer) => {
       rl.close();
       resolve(answer.toLowerCase().startsWith('s'));
     });

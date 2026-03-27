@@ -9,11 +9,10 @@ export async function main({ origin, destiny, commit }) {
 
   const { commitMsg } = await applyCommitChanges({ origin, destiny, commit });
 
-  try {
-    sh(`git -C "${destiny}" diff --quiet`);
+  const statusOutput = sh(`git -C "${destiny}" status --porcelain`);
+  if (!statusOutput.trim()) {
     console.log('No hay cambios que aplicar en destiny.');
     return;
-  } catch {
   }
 
   const confirmed = await confirmCommit(destiny, commitMsg);

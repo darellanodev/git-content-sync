@@ -35,9 +35,11 @@ if (!origin || !destiny || !commit) {
   showUsage();
 }
 
-try {
-  await main({ origin, destiny, commit });
-} catch (error) {
-  console.error('Error:', error.message);
-  process.exit(1);
-}
+(async () => {
+  try {
+    await main({ origin, destiny, commit });
+  } catch (error) {
+    console.error('Error:', error.message);
+    process.exit(1);
+  }
+})();

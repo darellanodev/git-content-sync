@@ -14,7 +14,17 @@ export function getCommitMessage(origin, commit) {
 }
 
 export function getParentCommit(origin, commit) {
-  return sh(`git -C "${origin}" rev-parse ${commit}^`).trim();
+  const output = sh(`git -C "${origin}" rev-list --parents -n 1 ${commit}`).trim();
+  const parts = output.split(/\s+/);
+  if (parts.length === 1) {
+    return null;
+  }
+  return parts[1];
+}
+
+export function getFilesAtCommit(origin, commit) {
+  const output = sh(`git -C "${origin}" ls-tree -r --name-only ${commit}`);
+  return output.split('\n').filter(line => line.trim());
 }
 
 export function getSummaryDiff(origin, parent, commit) {

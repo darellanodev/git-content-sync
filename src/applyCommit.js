@@ -4,7 +4,8 @@ import {
   getParentCommit,
   getSummaryDiff,
   getNameStatusDiff,
-  getFileContentAt
+  getFileContentAt,
+  getFilesAtCommit
 } from './gitDiff.js';
 import {
   writeFile,
@@ -15,6 +16,15 @@ import {
 export async function applyCommitChanges({ origin, destiny, commit }) {
   const commitMsg = getCommitMessage(origin, commit);
   const parent = getParentCommit(origin, commit);
+
+  if (!parent) {
+    const files = getFilesAtCommit(origin, commit);
+    for (const relPath of files) {
+      const content = getFileContentAt(origin, commit, relPath);
+      writeFile(destiny, relPath, content);
+    }
+    return { commitMsg };
+  }
 
   const summaryLines = getSummaryDiff(origin, parent, commit);
   const nameStatusLines = getNameStatusDiff(origin, parent, commit);
@@ -68,15 +78,14 @@ export async function applyCommitChanges({ origin, destiny, commit }) {
 }
 
 export function commitDestiny({ destiny, commitMsg }) {
-  try {
-    sh(`git -C "${destiny}" diff --quiet`);
+  const statusOutput = sh(`git -C "${destiny}" status --porcelain`);
+  if (!statusOutput.trim()) {
     console.log('No hay cambios en destiny.');
     return false;
-  } catch {
-    sh(`git -C "${destiny}" add -A`);
-    const escapedMsg = commitMsg.replace(/"/g, '\\"');
-    sh(`git -C "${destiny}" commit -m "${escapedMsg}"`);
-    console.log('Commit creado en destiny.');
-    return true;
   }
+  sh(`git -C "${destiny}" add -A`);
+  const escapedMsg = commitMsg.replace(/"/g, '\\"');
+  sh(`git -C "${destiny}" commit -m "${escapedMsg}"`);
+  console.log('Commit creado en destiny.');
+  return true;
 }
