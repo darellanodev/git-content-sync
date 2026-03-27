@@ -40,3 +40,15 @@ export function getNameStatusDiff(origin, parent, commit) {
 export function getFileContentAt(origin, commit, relPath) {
   return sh(`git -C "${origin}" show ${commit}:"${relPath}"`);
 }
+
+export function getNextCommit(origin, commit) {
+  const output = sh(`git -C "${origin}" log --oneline --ancestry-path ${commit}..HEAD`).trim();
+  if (!output) return null;
+  const commits = output.split('\n');
+  return commits[commits.length - 1].split(' ')[0];
+}
+
+export function getAllCommits(origin) {
+  const output = sh(`git -C "${origin}" log --oneline --reverse`).trim();
+  return output.split('\n').map(line => line.split(' ')[0]);
+}
