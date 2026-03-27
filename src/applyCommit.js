@@ -60,7 +60,11 @@ export async function applyCommitChanges({ origin, destiny, commit }) {
   for (const line of nameStatusLines) {
     const parts = line.split('\t');
     const status = parts[0];
-    const relPath = parts[1];
+    let relPath = parts[1];
+
+    if (status.startsWith('R')) {
+      relPath = parts[2];
+    }
 
     if (status === 'M') {
       const content = getFileContentAt(origin, commit, relPath);
