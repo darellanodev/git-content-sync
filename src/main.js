@@ -17,7 +17,7 @@ function askQuestion(question) {
   });
 }
 
-export async function main({ origin, destiny, commit }) {
+export async function main({ origin, destiny, commit, yes = false }) {
   ensureGitRepo(origin);
   ensureGitRepo(destiny);
 
@@ -33,12 +33,17 @@ export async function main({ origin, destiny, commit }) {
     if (!statusOutput.trim()) {
       console.log('No hay cambios que aplicar en destiny.');
     } else {
-      const confirmed = await confirmCommit(destiny, commitMsg);
-      if (confirmed) {
+      if (yes) {
+        console.log('Auto-confirmando commit...');
         commitDestiny({ destiny, commitMsg });
       } else {
-        console.log('Usuario canceló. Terminando.');
-        return;
+        const confirmed = await confirmCommit(destiny, commitMsg);
+        if (confirmed) {
+          commitDestiny({ destiny, commitMsg });
+        } else {
+          console.log('Usuario canceló. Terminando.');
+          return;
+        }
       }
     }
 
@@ -48,10 +53,12 @@ export async function main({ origin, destiny, commit }) {
       return;
     }
 
-    const answer = await askQuestion(`\n¿Continuar con el siguiente commit ${nextCommit}? (s/N) `);
-    if (!answer.toLowerCase().startsWith('s')) {
-      console.log('Terminando.');
-      return;
+    if (!yes) {
+      const answer = await askQuestion(`\n¿Continuar con el siguiente commit ${nextCommit}? (s/N) `);
+      if (!answer.toLowerCase().startsWith('s')) {
+        console.log('Terminando.');
+        return;
+      }
     }
 
     currentCommit = nextCommit;
