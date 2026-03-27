@@ -49,7 +49,9 @@ export async function applyCommitChanges({ origin, destiny, commit }) {
         const oldRel = match[1].trim();
         const newRel = match[2].trim();
         const moved = renameFile(destiny, oldRel, newRel);
-        if (!moved) {
+        if (moved) {
+          deleteFile(destiny, oldRel);
+        } else {
           const content = getFileContentAt(origin, commit, newRel);
           writeFile(destiny, newRel, content);
         }
@@ -61,8 +63,10 @@ export async function applyCommitChanges({ origin, destiny, commit }) {
     const parts = line.split('\t');
     const status = parts[0];
     let relPath = parts[1];
+    let oldRelPath = null;
 
     if (status.startsWith('R')) {
+      oldRelPath = parts[1];
       relPath = parts[2];
     }
 
@@ -75,6 +79,9 @@ export async function applyCommitChanges({ origin, destiny, commit }) {
     } else if (status.startsWith('R')) {
       const content = getFileContentAt(origin, commit, relPath);
       writeFile(destiny, relPath, content);
+      if (oldRelPath) {
+        deleteFile(destiny, oldRelPath);
+      }
     }
   }
 
