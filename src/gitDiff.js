@@ -8,6 +8,10 @@ export function ensureGitRepo(root) {
   }
 }
 
+export function getHeadCommit(repo) {
+  return sh(`git -C "${repo}" rev-parse HEAD`).trim();
+}
+
 export function getCommitMessage(origin, commit) {
   const output = sh(`git -C "${origin}" show -s --format=%B ${commit}`);
   return output.trim();
@@ -46,6 +50,13 @@ export function getNextCommit(origin, commit) {
   if (!output) return null;
   const commits = output.split('\n');
   return commits[commits.length - 1].split(' ')[0];
+}
+
+export function getFirstCommitAfter(origin, baseCommit) {
+  const output = sh(`git -C "${origin}" log --oneline --ancestry-path ${baseCommit}..HEAD`).trim();
+  if (!output) return null;
+  const commits = output.split('\n');
+  return commits[0].split(' ')[0];
 }
 
 export function getAllCommits(origin) {

@@ -1,5 +1,5 @@
 import readline from 'readline';
-import { ensureGitRepo, getNextCommit, getAllCommits } from './gitDiff.js';
+import { ensureGitRepo, getHeadCommit, getFirstCommitAfter, getNextCommit } from './gitDiff.js';
 import { applyCommitChanges, commitDestiny } from './applyCommit.js';
 import { confirmCommit } from './confirm.js';
 import { sh } from './shell.js';
@@ -17,12 +17,20 @@ function askQuestion(question) {
   });
 }
 
-export async function main({ origin, destiny, commit, yes = false }) {
+export async function main({ origin, destiny, yes = false }) {
   ensureGitRepo(origin);
   ensureGitRepo(destiny);
 
-  const allCommits = getAllCommits(origin);
-  let currentCommit = commit;
+  const destinyHead = getHeadCommit(destiny);
+  console.log(`Destiny HEAD: ${destinyHead}`);
+
+  const currentCommit = getFirstCommitAfter(origin, destinyHead);
+  if (!currentCommit) {
+    console.log('Origin is up to date with destiny. Nothing to sync.');
+    return;
+  }
+
+  console.log(`Starting from commit: ${currentCommit}`);
 
   while (currentCommit) {
     console.log(`\n--- Processing commit: ${currentCommit} ---`);

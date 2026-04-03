@@ -7,7 +7,6 @@ function parseArgs() {
   const options = {
     origin: null,
     destiny: null,
-    commit: null,
     yes: false
   };
 
@@ -17,8 +16,6 @@ function parseArgs() {
       options.origin = args[++i];
     } else if (arg === '--destiny' && i + 1 < args.length) {
       options.destiny = args[++i];
-    } else if (arg === '--commit' && i + 1 < args.length) {
-      options.commit = args[++i];
     } else if (arg === '--yes' || arg === '-y') {
       options.yes = true;
     }
@@ -28,19 +25,19 @@ function parseArgs() {
 }
 
 function showUsage() {
-  console.error('Usage: git-content-sync --origin <path> --destiny <path> --commit <hash> [--yes|-y]');
+  console.error('Usage: git-content-sync --origin <path> --destiny <path> [--yes|-y]');
   process.exit(1);
 }
 
-const { origin, destiny, commit, yes } = parseArgs();
+const { origin, destiny, yes } = parseArgs();
 
-if (!origin || !destiny || !commit) {
+if (!origin || !destiny) {
   showUsage();
 }
 
 (async () => {
   try {
-    await main({ origin, destiny, commit, yes });
+    await main({ origin, destiny, yes });
   } catch (error) {
     console.error('Error:', error.message);
     process.exit(1);
