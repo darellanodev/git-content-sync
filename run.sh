@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 set -e
 
-# Configuration
-
-PAIR=1
+# Ask the user
+echo "Select the directory pair:"
+echo "  1) php-design-patterns"
+echo "  2) tiny-loot-quest"
+read -p "Option [1-2]: " PAIR
 
 # Main program
-
 case "$PAIR" in
   1)
     ORIGIN='D:/Descargas/php-design-patterns'
@@ -17,11 +18,10 @@ case "$PAIR" in
     DESTINY='D:/projects/games/tiny-loot-quest'
     ;;
   *)
-    echo "PAIR debe ser 1 o 2"
+    echo "Error: PAIR must be 1 or 2"
     exit 1
     ;;
 esac
-
 
 npm run sync -- \
   --origin "$ORIGIN" \
