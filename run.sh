@@ -5,7 +5,8 @@ set -e
 echo "Select the directory pair:"
 echo "  1) php-design-patterns"
 echo "  2) tiny-loot-quest"
-read -p "Option [1-2]: " PAIR
+echo "  3) portfolio-zola"
+read -p "Option [1-3]: " PAIR
 
 # Main program
 case "$PAIR" in
@@ -16,6 +17,10 @@ case "$PAIR" in
   2)
     ORIGIN='D:/Descargas/tiny-loot-quest'
     DESTINY='D:/projects/games/tiny-loot-quest'
+    ;;
+  3)
+    ORIGIN='D:/Descargas/portfolio-zola'
+    DESTINY='D:/projects/portfolio/portfolio-zola'
     ;;
   *)
     echo "Error: PAIR must be 1 or 2"
