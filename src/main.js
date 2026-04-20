@@ -24,7 +24,7 @@ export async function main({ origin, destiny, yes = false }) {
   const destinyHead = getHeadCommit(destiny);
   console.log(`Destiny HEAD: ${destinyHead}`);
 
-  const currentCommit = getFirstCommitAfter(origin, destinyHead);
+  let currentCommit = getFirstCommitAfter(origin, destiny);
   if (!currentCommit) {
     console.log('Origin is up to date with destiny. Nothing to sync.');
     return;

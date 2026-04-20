@@ -45,18 +45,26 @@ export function getFileContentAt(origin, commit, relPath) {
   return sh(`git -C "${origin}" show ${commit}:"${relPath}"`);
 }
 
-export function getNextCommit(origin, commit) {
-  const output = sh(`git -C "${origin}" log --oneline --ancestry-path ${commit}..HEAD`).trim();
-  if (!output) return null;
-  const commits = output.split('\n');
-  return commits[commits.length - 1].split(' ')[0];
+export function getFirstCommitAfter(origin, destiny) {
+  const destinyMsg = sh(`git -C "${destiny}" log -1 --format=%B`).trim();
+  
+  const originCommits = sh(`git -C "${origin}" log --oneline --reverse`).trim().split('\n').map(c => c.split(' ')[0]);
+  
+  for (let i = 0; i < originCommits.length; i++) {
+    const msg = sh(`git -C "${origin}" log -1 --format=%B ${originCommits[i]}`).trim();
+    if (msg === destinyMsg) {
+      if (i >= originCommits.length - 1) return null;
+      return originCommits[i + 1];
+    }
+  }
+  return originCommits[0];
 }
 
-export function getFirstCommitAfter(origin, baseCommit) {
-  const output = sh(`git -C "${origin}" log --oneline --ancestry-path ${baseCommit}..HEAD`).trim();
-  if (!output) return null;
-  const commits = output.split('\n');
-  return commits[0].split(' ')[0];
+export function getNextCommit(origin, currentCommit) {
+  const originCommits = sh(`git -C "${origin}" log --oneline --reverse`).trim().split('\n').map(c => c.split(' ')[0]);
+  const currentIndex = originCommits.indexOf(currentCommit);
+  if (currentIndex === -1 || currentIndex >= originCommits.length - 1) return null;
+  return originCommits[currentIndex + 1];
 }
 
 export function getAllCommits(origin) {
