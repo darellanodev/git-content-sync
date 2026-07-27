@@ -7,7 +7,7 @@ echo "  1) pattern-lab-php"
 echo "  2) tiny-loot-quest"
 echo "  3) portfolio-zola"
 echo "  4) out-of-office"
-echo "  5) dcss"
+echo "  5) dcss-help"
 read -p "Option [1-5]: " PAIR
 
 # Main program
