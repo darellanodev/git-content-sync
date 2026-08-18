@@ -8,6 +8,7 @@ echo "  2) tiny-loot-quest"
 echo "  3) portfolio-zola"
 echo "  4) out-of-office"
 echo "  5) dcss-help"
+echo "  6) media-magnet"
 read -p "Option [1-5]: " PAIR
 
 # Main program
@@ -31,6 +32,10 @@ case "$PAIR" in
   5)
     ORIGIN='D:/Descargas/dcss-help'
     DESTINY='D:/projects/tools/dcss-help'
+    ;;
+  6)
+    ORIGIN='D:/Descargas/media-magnet'
+    DESTINY='D:/projects/tools/media-magnet'
     ;;
   *)
     echo "Error: Incorrect option"
