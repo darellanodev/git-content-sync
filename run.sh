@@ -45,7 +45,7 @@ case "$PAIR" in
     ;;
   8)
     ORIGIN='D:/Descargas/sobrelamarcha'
-    DESTINY='D:/projects/sobrelamarcha/web'
+    DESTINY='D:/projects/sobrelamarcha/sobrelamarcha.github.io'
     ;;
   *)
     echo "Error: Incorrect option"
