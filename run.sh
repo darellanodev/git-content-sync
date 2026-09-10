@@ -11,7 +11,8 @@ echo "  5) dcss-help"
 echo "  6) media-magnet"
 echo "  7) bread-baron"
 echo "  8) sobrelamarcha-web"
-read -p "Option [1-8]: " PAIR
+echo "  9) hyperframes-animations"
+read -p "Option [1-9]: " PAIR
 
 # Main program
 case "$PAIR" in
@@ -44,8 +45,12 @@ case "$PAIR" in
     DESTINY='D:/projects/games/bread-baron'
     ;;
   8)
-    ORIGIN='D:/Descargas/sobrelamarcha'
+    ORIGIN='D:/Descargas/sobrelamarcha.github.io'
     DESTINY='D:/projects/sobrelamarcha/sobrelamarcha.github.io'
+    ;;
+  9)
+    ORIGIN='D:/Descargas/hyperframes-animations'
+    DESTINY='D:/projects/design/hyperframes-animations'
     ;;
   *)
     echo "Error: Incorrect option"
