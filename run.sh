@@ -12,7 +12,8 @@ echo "  6) media-magnet"
 echo "  7) bread-baron"
 echo "  8) sobrelamarcha-web"
 echo "  9) hyperframes-animations"
-read -p "Option [1-9]: " PAIR
+echo "  10) gif-tower-defense"
+read -p "Option [1-10]: " PAIR
 
 # Main program
 case "$PAIR" in
@@ -51,6 +52,10 @@ case "$PAIR" in
   9)
     ORIGIN='D:/Descargas/hyperframes-animations'
     DESTINY='D:/projects/design/hyperframes-animations'
+    ;;
+  10)
+    ORIGIN='D:/Descargas/gif-tower-defense'
+    DESTINY='D:/projects/games/gif-tower-defense'
     ;;
   *)
     echo "Error: Incorrect option"
