@@ -14,7 +14,8 @@ echo "  8) sobrelamarcha-web"
 echo "  9) hyperframes-animations"
 echo "  10) gif-tower-defense"
 echo "  11) jetpack-game"
-read -p "Option [1-11]: " PAIR
+echo "  12) daily-boost-calendar"
+read -p "Option [1-12]: " PAIR
 
 # Main program
 case "$PAIR" in
@@ -61,6 +62,10 @@ case "$PAIR" in
   11)
     ORIGIN='D:/Descargas/jetpack-game'
     DESTINY='D:/projects/games/jetpack-game'
+    ;;
+  12)
+    ORIGIN='D:/Descargas/daily-boost-calendar'
+    DESTINY='D:/projects/management/daily-boost-calendar'
     ;;
   *)
     echo "Error: Incorrect option"
