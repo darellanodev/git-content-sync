@@ -13,7 +13,8 @@ echo "  7) bread-baron"
 echo "  8) sobrelamarcha-web"
 echo "  9) hyperframes-animations"
 echo "  10) gif-tower-defense"
-read -p "Option [1-10]: " PAIR
+echo "  11) jetpack-game"
+read -p "Option [1-11]: " PAIR
 
 # Main program
 case "$PAIR" in
@@ -56,6 +57,10 @@ case "$PAIR" in
   10)
     ORIGIN='D:/Descargas/gif-tower-defense'
     DESTINY='D:/projects/games/gif-tower-defense'
+    ;;
+  11)
+    ORIGIN='D:/Descargas/jetpack-game'
+    DESTINY='D:/projects/games/jetpack-game'
     ;;
   *)
     echo "Error: Incorrect option"
