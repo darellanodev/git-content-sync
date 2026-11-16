@@ -16,7 +16,8 @@ echo "  10) gif-tower-defense"
 echo "  11) jetpack-game"
 echo "  12) daily-boost-calendar"
 echo "  13) cave-drop"
-read -p "Option [1-13]: " PAIR
+echo "  14) zap-my-app"
+read -p "Option [1-14]: " PAIR
 
 # Main program
 case "$PAIR" in
@@ -72,6 +73,10 @@ case "$PAIR" in
     ORIGIN='D:/Descargas/cave-drop'
     DESTINY='D:/projects/games/cave-drop'
     ;;
+  14)
+    ORIGIN='D:/Descargas/zap-my-app'
+    DESTINY='D:/projects/games/zap-my-app'
+    ;;	
   *)
     echo "Error: Incorrect option"
     exit 1
